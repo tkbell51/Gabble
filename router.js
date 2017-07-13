@@ -2,16 +2,16 @@ const express = require('express');
 const gabbleController = require('./controllers/gabbleController');
 
 module.exports = function(app){
-  app.get("/gabble/signup/", gabbleController.signUp);
-  app.post("/gabble/signup/", gabbleController.signValidation);
-  app.get("/gabble/login", gabbleController.loginPage);
-  app.post("/gabble/login", gabbleController.login);
+  app.get("/gabble/user/signup/", gabbleController.signUp);
+  app.post("/gabble/user/signup/", gabbleController.signValidation);
+  app.get("/gabble/user/login/", gabbleController.loginPage);
+  app.post("/gabble/user/login/", gabbleController.login);
   app.get("/gabble/", gabbleController.home);
-  app.get('/gabble/newgab/', gabbleController.newGab);
-  app.post('/gabble/newgab', gabbleController.newGabPost);
-  app.get('/gabble/:id', gabbleController.oneGab)
+  app.post('/gabble/', gabbleController.newGabPost);
+  app.post('/gabble/like/:id', gabbleController.createLike)
+  app.get('/gabble/like', gabbleController.likePage);
   // app.patch('/gabble/:id', gabbleController.updateGab)
-  app.delete('/gabbe/:id', gabbleController.delete)
+  app.delete('/gabble/delete/{{id}}', gabbleController.delete)
 
   // app.get('/gabble/likes/', gabbleController.likes);
 

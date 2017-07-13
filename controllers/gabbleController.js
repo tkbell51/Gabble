@@ -65,7 +65,7 @@ module.exports={
       console.log(user);
       req.session.user = user.username
       console.log("session.user ", req.session.user);
-      req.session.id = user.id
+      req.session.userId = user.id
       console.log("session.id ", req.session.id);
 
 
@@ -88,6 +88,7 @@ module.exports={
       },],
       order: [['createdAt', 'DESC']]
     }).then(function(gabs) {
+
       console.log(gabs);
 
         context.model = gabs;
@@ -97,23 +98,38 @@ module.exports={
       res.render('home', context);
     });
   },
-  newGab: (req, res)=>{
-    res.render('newGab', {})
-  },
+
   newGabPost: (req, res)=>{
-    models.Gab.create({gab: req.body.gab, users: req.session.user}).save().then((gabs)=>{
+    models.Gab.create({gab:req.body.newPost, userId: req.session.userId}).then((gabs)=>{
+      console.log(gabs);
       res.redirect("/gabble/");
     });
   },
   oneGab: (req, res)=>{
     models.Gab.findOne({
-      include: [{model: models.User, as: 'users'}],
+    include: [{model: models.User, as: 'users'}, 'gabLikes'],
+      //include: [{model: models.User, as: 'users'},{model: models.Like, as: 'gabLikes'}],
     where: {id: req.params.id}
   }).then((gab)=>{
-      console.log(gab);
+      console.log('gab', gab);
 
       context.model = gab;
       res.render('oneGab', context)
+    })
+  },
+  createLike: (req, res)=>{
+    context: {
+      likesArray: [];
+      likesNumber: '';
+    }
+    models.Like.create({userId: req.session.userId, gabId: req.params.id, gabLikes: req.session.userId}).then((likes)=>{
+      console.log('likes', likes);
+      // context.likesArray.push(likes);
+      // console.log(context.likesArray);
+      // context.likesNumber = context.likesArray.length
+      // console.log(context.likesNumber);
+      // console.log(gabs);
+      // res.redirect('/gabble/');
     })
   },
   updateGab: (req, res)=>{
@@ -140,19 +156,19 @@ module.exports={
     }
 
   },
-  // likes: (req, res)=>{
-  //   models.Gab.findOne({
-  //     where: {id: req.params.id},
-  //     include: [{
-  //        model: models.Gab,
-  //       as: 'gabs'
-  //     }],
-  //     order: [['createdAt', 'DESC']]
-  //   }).then((likes)=>{
-  //     console.log(likes);
-  //     context.model = likes;
-  //     res.render('likes', context);
-  //   })
-  // }
+  likePage: (req, res)=>{
+    models.Gab.findOne({
+      where: {id: req.params.id},
+      include: [{
+         model: models.Gab,
+        as: 'gabs'
+      }],
+      order: [['createdAt', 'DESC']]
+    }).then((likes)=>{
+      console.log(likes);
+      context.model = likes;
+      res.render('likes', context);
+    })
+  }
 
 }

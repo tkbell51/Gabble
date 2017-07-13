@@ -5,8 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     gabId: DataTypes.INTEGER
   }, {});
   Like.associate = function(models) {
-    Like.belongsTo(models.Gab, {as: 'gabLikes', foreignKey: 'id'});
-    Like.belongsTo(models.User, {as: 'userLikes', foreignKey: 'id'});
+    Like.belongsToMany(models.Gab, {as: 'gabLikes', through: 'Likes', foreignKey: 'likeId'});
+    Like.belongsTo(models.User, {as: 'userLikes', foreignKey: 'likeId'});
   };
   return Like;
 };

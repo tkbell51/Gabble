@@ -33,11 +33,12 @@ app.use(session({
 
 app.use(function(req, res, next){
   var pathname = parseurl(req).pathname;
-  if(!req.session.user && pathname != '/gabble/login'){
-    res.redirect('/gabble/login');
-  }else{
+  if(!req.session.user && !pathname.includes('/gabble/user')){
+    res.redirect('/gabble/user/login');
+  } else {
     next();
   }
+
 });
 // app.use(function (req, res, next){
 //   const sess
