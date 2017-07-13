@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Gabble-Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <h1>Welcome {{signedInUser}}</h1>
+    {{#model}}
+
+<a href="/gabble/{{id}}">
+    <div class="gab">
+        <h3>@{{users.username}}</h3>
+        {{gab}}
+        <form class='like' action="/gabble/{{id}}" method="post">
+        <button class="btn-floating btn-large waves-effect waves-light orange" name="like"><i class="material-icons">thumb_up</i></button>
+      </form>
+
+    {{#message}}
+    <p>{{.}}</p>
+    {{/message}}
+    <div>
+    </a>
+    {{/model}}
+    <!-- <h1>{{username}}</h1> -->
+    <!-- {{#model}}
+
+<fieldset class="section">
+<form class="" action="/addLikes/{{id}}" method="get">
+  <p>{{user.name}}: {{text}}
+  <span>
+    <input type="submit" name="like" value="like" id="{{id}}">
+  </form>
+  </span>
+</p>
+  <p>{{createdAt}}
+  </p>
+{{#UserLikes.length}}
+  <form class="numOfLikes" action="/likes/{{id}}" method="get">
+    <input type="submit" name="" value="{{.}} like(s)" id="{{id}}">
+  </form>
+{{/UserLikes.length}}
+  {{^UserLikes.length}}
+      <span>
+  <form class="numOfLikes" action="/viewLikes/{{id}}" method="get">
+    <input type="submit" name="" value="no likes yet" id="{{id}}">
+  </form>
+  {{/UserLikes.length}}
+
+
+      {{#showDeleteIfOwner}}
+      {{loggedInUser}}
+      {{/showDeleteIfOwner}}
+    </span>
+</fieldset>
+{{/model}} -->
+  </body>
+</html>

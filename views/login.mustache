@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Gabble-Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+
+  </head>
+  <body>
+    <h1>Gabble</h1>
+    <h3>Login</h3>
+    <form class="" action="/gabble/login" method="post">
+          <input type="hidden" name="next" value="{{next}}">
+          <div class="">
+            <input type="text" name="username" value="" placeholder="Username">
+          </div>
+          <div class="">
+            <input type="password" name="password" value="" placeholder="Password">
+          </div>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Login
+    <i class="material-icons right">send</i>
+  </button>
+        </form>
+        <div class="">
+            <a class="waves-effect waves-light btn orange darken-3" href="/gabble/signup"><i class="material-icons left">cloud</i>New User Signup</a>
+        </div>
+  </body>
+</html>

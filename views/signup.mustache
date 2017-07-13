@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Gabble-Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <h1>Gabble</h1>
+  <div class="row">
+    <form class="col s12 grey darken-4" action="/gabble/signup" method="post">
+      <ul>
+        {{#errors}}
+        <li>{{param}}: {{msg}}</li>
+        {{/errors}}
+      </ul>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" name="username" value="" placeholder="Username">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="password" name="password" value="" placeholder="Password">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="password" name="confPassword" value="" placeholder="Confirm Password">
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light  orange darken-3" type="submit" name="action">Sign Up
+    <i class="material-icons right">send</i>
+  </button>
+    </form>
+  </div>
+
+    </form>
+    <div class="username">
+
+    </div>
+  </body>
+</html>
