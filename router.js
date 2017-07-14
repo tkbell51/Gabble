@@ -8,10 +8,11 @@ module.exports = function(app){
   app.post("/gabble/user/login/", gabbleController.login);
   app.get("/gabble/", gabbleController.home);
   app.post('/gabble/', gabbleController.newGabPost);
-  app.post('/gabble/like/:id', gabbleController.createLike)
-  app.get('/gabble/like', gabbleController.likePage);
-  // app.patch('/gabble/:id', gabbleController.updateGab)
-  app.delete('/gabble/delete/{{id}}', gabbleController.delete)
+  app.post('/gabble/like/:id', gabbleController.createLike);
+  app.get('/gabble/like/:id', gabbleController.showLikes);
+  app.post('/gabble/signout', gabbleController.signOut);
+  // app.get('/gabble/:id', gabbleController.oneGab)
+  app.delete('/gabble/delete/:id', gabbleController.delete)
 
   // app.get('/gabble/likes/', gabbleController.likes);
 

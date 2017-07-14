@@ -5,13 +5,15 @@ const models = require('../models');
 const Sequelize = require('sequelize');
 
 module.exports={
+  //---------signup render
   signUp: (req, res,next)=>{
     res.render('signup')
   },
+  //------login render
   loginPage: (req, res, next)=>{
     res.render('login')
   },
-
+//------signup up create and validation -----
   signValidation: function (req, res, next){
 
     const username = req.body.username;
@@ -33,10 +35,13 @@ module.exports={
       models.User.create({
         username: req.body.username,
         password: req.body.password,
+        first_name: req.body.firstName,
+        last_name: req.body.lastName,
 
       }).then(function (newUser){
 
         console.log(newUser);
+        req.session.name = newUser.first_name;
         req.session.userId = newUser.id
         req.session.user = newUser.username
 
@@ -53,7 +58,7 @@ module.exports={
       });
     }
   },
-
+//----------------login--------------
   login: (req, res, next)=>{
 
     models.User.findOne({
@@ -67,17 +72,20 @@ module.exports={
       console.log("session.user ", req.session.user);
       req.session.userId = user.id
       console.log("session.id ", req.session.id);
+      req.session.name = user.first_name;
 
 
       if(req.session.user){
         res.redirect('/gabble/');
       }else{
-        res.redirect('gabble/login');
+        res.redirect('gabble/user/login');
       }
     })
   },
+  //-----------home---------
   home: function(req, res) {
     context = {
+      welcomeName: req.session.name,
       signedInUser: "@" + req.session.user
     }
     models.Gab.findAll({
@@ -88,48 +96,30 @@ module.exports={
       },],
       order: [['createdAt', 'DESC']]
     }).then(function(gabs) {
-
-      console.log(gabs);
-
         context.model = gabs;
-        // console.log(context.model);
-
-
       res.render('home', context);
     });
   },
-
+//-------create new gab-----------
   newGabPost: (req, res)=>{
     models.Gab.create({gab:req.body.newPost, userId: req.session.userId}).then((gabs)=>{
       console.log(gabs);
       res.redirect("/gabble/");
     });
   },
-  oneGab: (req, res)=>{
-    models.Gab.findOne({
-    include: [{model: models.User, as: 'users'}, 'gabLikes'],
-      //include: [{model: models.User, as: 'users'},{model: models.Like, as: 'gabLikes'}],
-    where: {id: req.params.id}
-  }).then((gab)=>{
-      console.log('gab', gab);
 
-      context.model = gab;
-      res.render('oneGab', context)
-    })
-  },
   createLike: (req, res)=>{
-    context: {
-      likesArray: [];
-      likesNumber: '';
-    }
+    var likesArray = []
     models.Like.create({userId: req.session.userId, gabId: req.params.id, gabLikes: req.session.userId}).then((likes)=>{
       console.log('likes', likes);
-      // context.likesArray.push(likes);
-      // console.log(context.likesArray);
-      // context.likesNumber = context.likesArray.length
+      likesArray.push(likes.userId);
+      console.log(likesArray);
+      var likesNumber = likesArray.length
+      console.log("NUMBER OF LIKES", likesNumber);
+      context.likesNumber = likesNumber
       // console.log(context.likesNumber);
       // console.log(gabs);
-      // res.redirect('/gabble/');
+      res.redirect('/gabble/');
     })
   },
   updateGab: (req, res)=>{
@@ -159,16 +149,54 @@ module.exports={
   likePage: (req, res)=>{
     models.Gab.findOne({
       where: {id: req.params.id},
-      include: [{
-         model: models.Gab,
-        as: 'gabs'
-      }],
-      order: [['createdAt', 'DESC']]
-    }).then((likes)=>{
-      console.log(likes);
-      context.model = likes;
-      res.render('likes', context);
-    })
-  }
 
-}
+      include: [{
+         model: models.like,
+        as: 'gabLikes'
+      }],
+
+    }).then((gab)=>{
+      gab.getgabLikes().then(likes=>{
+        console.log(likes);
+      })
+      // console.log(results);
+      // console.log("THEEEE GABBBBB", gabLikes)
+      //
+      // console.log("AALLLLLLL THE LIKES", results);
+      res.render('likes', results);
+    })
+  },
+  signOut: (req, res)=>{
+    delete req.session.userId
+    delete req.session.user
+    res.redirect('/google/user/login')
+  },
+
+  showLikes: function(req, res) {
+     models.Gab.findOne({
+       where: {
+         id: req.params.id
+       },
+       include: [{
+         model: models.User,
+         as: 'users'
+       }]
+     }).then(function(gab) {
+       console.log(gab);
+       gab.getUserLikes().then(function(result) {
+         // console.log(result, result.length);
+         var context = {
+           model: gab,
+           name: req.session.user,
+
+         };
+         for (var i = 0; i < result.length; i++) {
+           console.log(result[i].username);
+           context.likes.push(result[i].username);
+           console.log("LIKES ", context.likes);
+         }
+         res.render('likes', context);
+       });
+     });
+   },
+ };

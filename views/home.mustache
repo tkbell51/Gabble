@@ -9,14 +9,25 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+  <nav class="orange">
+    <p>{{welcomeName}} is logged in</p>
+  </nav>
   <h1>Gabble</h1>
   <h1>Welcome {{signedInUser}}</h1>
-  <form class="" action="/gabble/" method="post">
+  <div class="">
+      <a class="waves-effect waves-light btn orange" href="/gabble/like"><i class="material-icons left">thumb_up</i>Like Page</a>
+  </div>
+  <form class="container" action="/gabble/" method="post">
     <input type="text" name="newPost" value="" placeholder="What you want to Gab about?">
   <button class="btn waves-effect waves-light orange" type="submit" name="action">Create Gab
       <i class="material-icons right">send</i>
     </button>
   </form>
+  <form class='signout' action='/gabble/signout' method='post'>
+    <button class="btn waves-effect waves-light orange" type="submit" name="action">Sign Out
+  <i class="material-icons right">close</i>
+</button>
+</form>
   {{#model}}
 
 
@@ -30,10 +41,15 @@
       <form class='like' action="/gabble/like/{{id}}" method="post">
         <button class="btn-floating btn-large waves-effect waves-light orange" name="like"><i class="material-icons">thumb_up</i></button>
       </form>
-      {{likesNumber}}
+      {{#likesNumber}}
+      <p>{{.}}</p>
+      {{/likesNumber}}
     </span>
+    <div class="">
+        <a class="waves-effect waves-light btn orange" href="/gabble/like/{{id}}"><i class="material-icons left">thumb_up</i>See Likes</a>
+    </div>
     <span>
-      <form class="delete" action="/gabbe/delete/{{id}}" method="post">
+      <form class="delete" action="/gabble/delete/{{id}}" method="post">
         <button class="btn-floating btn-large waves-effect waves-light orange" name="delete"><i class="material-icons">delete</i></button>
       </form>
     </span>

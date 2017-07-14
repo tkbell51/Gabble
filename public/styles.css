@@ -10,5 +10,10 @@ body{
      box-shadow: 0 1px 0 0 #F66733;
 }
 .btn{
+
   background: #F66733
+}
+.btn-floating{
+  display: inline
+
 }
