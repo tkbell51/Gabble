@@ -1,13 +1,13 @@
 *{
-color: #FFF;
+  color: #FFF;
 }
 body{
   background: #000;
   text-align: center;
 }
 .input-field input[type=text]:focus {
-     border-bottom: 1px solid #F66733;
-     box-shadow: 0 1px 0 0 #F66733;
+  border-bottom: 1px solid #F66733;
+  box-shadow: 0 1px 0 0 #F66733;
 }
 .btn{
 
@@ -16,4 +16,14 @@ body{
 .btn-floating{
   display: inline
 
+}
+
+header, main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
 }

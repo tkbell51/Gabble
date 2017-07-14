@@ -9,6 +9,39 @@
 
   </head>
   <body>
+    <ul id="slide-out" class="side-nav fixed orange">
+      <li>
+        <a href="/gabble/"><h1>Gabble</h1></a>
+      </li>
+        <li>
+          <p>{{welcomeName}}</p>
+          <p> is logged in</p>
+        </li>
+        <li>
+          <form class='signout' action='/gabble/signout' method='post'>
+            <button class="btn waves-effect waves-light orange" type="submit" name="action">Sign Out
+          <i class="material-icons right">close</i>
+        </button>
+        </form>
+        </li>
+      </ul>
+      <main>
+    {{#model}}
+    {{users.username}}
+    {{createdAt}}
 
+    <h1>{{gab}}</h1>
+
+<ul>
+  {{#likes}}
+  <li>{{.}}</li>
+  {{/likes}}
+</ul>
+
+
+
+
+    {{/model}}
+  </main>
   </body>
 </html>

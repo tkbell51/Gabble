@@ -107,71 +107,21 @@ module.exports={
       res.redirect("/gabble/");
     });
   },
-
+//-------like button--------
   createLike: (req, res)=>{
     var likesArray = []
-    models.Like.create({userId: req.session.userId, gabId: req.params.id, gabLikes: req.session.userId}).then((likes)=>{
-      console.log('likes', likes);
-      likesArray.push(likes.userId);
-      console.log(likesArray);
-      var likesNumber = likesArray.length
-      console.log("NUMBER OF LIKES", likesNumber);
-      context.likesNumber = likesNumber
-      // console.log(context.likesNumber);
-      // console.log(gabs);
+    models.Gab.findOne({
+      where: {id: req.params.id},
+      include: [{
+        model: models.User,
+        as: 'users'
+      }],
+    }).then(gab=>{
+      console.log('gab', gab);
+      gab.addUserLikes(req.session.userId)
       res.redirect('/gabble/');
     })
   },
-  updateGab: (req, res)=>{
-    models.Gab.findOne({
-      include: [{model: models.User, as: 'users'}],
-      where: {id: req.params.id}
-  }).then((gab)=>{
-      context.model = gab;
-      res.render('')
-    })
-  },
-
-  delete: (req, res)=>{
-    var context = {
-      message: '',
-    }
-    if(req.session.user===users.username){
-      models.Gab.destroy({where: {id: req.params.id, userId: req.session.id}}).then(()=>{
-        res.redirect("/gabble/");
-      });
-    } else{
-      context.message = 'You are not the owner of this Gab.'
-      res.redirect('/gabble')
-    }
-
-  },
-  likePage: (req, res)=>{
-    models.Gab.findOne({
-      where: {id: req.params.id},
-
-      include: [{
-         model: models.like,
-        as: 'gabLikes'
-      }],
-
-    }).then((gab)=>{
-      gab.getgabLikes().then(likes=>{
-        console.log(likes);
-      })
-      // console.log(results);
-      // console.log("THEEEE GABBBBB", gabLikes)
-      //
-      // console.log("AALLLLLLL THE LIKES", results);
-      res.render('likes', results);
-    })
-  },
-  signOut: (req, res)=>{
-    delete req.session.userId
-    delete req.session.user
-    res.redirect('/google/user/login')
-  },
-
   showLikes: function(req, res) {
      models.Gab.findOne({
        where: {
@@ -181,14 +131,13 @@ module.exports={
          model: models.User,
          as: 'users'
        }]
-     }).then(function(gab) {
+     }).then(gab=> {
        console.log(gab);
        gab.getUserLikes().then(function(result) {
-         // console.log(result, result.length);
          var context = {
            model: gab,
            name: req.session.user,
-
+           likes: []
          };
          for (var i = 0; i < result.length; i++) {
            console.log(result[i].username);
@@ -199,4 +148,21 @@ module.exports={
        });
      });
    },
+
+  delete: (req, res)=>{
+      models.Gab.destroy({where: {id: req.params.id, userId: req.session.userId}
+      }).then(()=>{
+        res.redirect("/gabble/");
+      })
+
+
+  },
+  signOut: (req, res)=>{
+    delete req.session.name;
+    delete req.session.userId;
+    delete req.session.user;
+    res.redirect('/google/user/login')
+  },
+
+
  };

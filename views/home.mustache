@@ -9,34 +9,42 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <nav class="orange">
-    <p>{{welcomeName}} is logged in</p>
-  </nav>
-  <h1>Gabble</h1>
+  <ul id="slide-out" class="side-nav fixed orange">
+    <li>
+      <a href="/gabble/"><h1>Gabble</h1></a>
+    </li>
+      <li>
+        <p>{{welcomeName}}</p>
+        <p> is logged in</p>
+      </li>
+      <li>
+        <form class='signout' action='/gabble/signout' method='post'>
+          <button class="btn waves-effect waves-light orange" type="submit" name="action">Sign Out
+        <i class="material-icons right">close</i>
+      </button>
+      </form>
+      </li>
+    </ul>
+
+<main>
   <h1>Welcome {{signedInUser}}</h1>
-  <div class="">
-      <a class="waves-effect waves-light btn orange" href="/gabble/like"><i class="material-icons left">thumb_up</i>Like Page</a>
-  </div>
+
   <form class="container" action="/gabble/" method="post">
     <input type="text" name="newPost" value="" placeholder="What you want to Gab about?">
   <button class="btn waves-effect waves-light orange" type="submit" name="action">Create Gab
-      <i class="material-icons right">send</i>
+      <i class="material-icons left">send</i>
     </button>
   </form>
-  <form class='signout' action='/gabble/signout' method='post'>
-    <button class="btn waves-effect waves-light orange" type="submit" name="action">Sign Out
-  <i class="material-icons right">close</i>
-</button>
-</form>
+
   {{#model}}
 
 
 
   <a href="/gabble/{{id}}">
-    <div class="gab">
+    <div class="gab container grey darken-4">
       <p>@{{users.username}}</p>
       <p>{{gab}}</p>
-      <p>{{createdAt}}</p>
+      <small>{{createdAt}}</small>
       <span>
       <form class='like' action="/gabble/like/{{id}}" method="post">
         <button class="btn-floating btn-large waves-effect waves-light orange" name="like"><i class="material-icons">thumb_up</i></button>
@@ -45,9 +53,7 @@
       <p>{{.}}</p>
       {{/likesNumber}}
     </span>
-    <div class="">
-        <a class="waves-effect waves-light btn orange" href="/gabble/like/{{id}}"><i class="material-icons left">thumb_up</i>See Likes</a>
-    </div>
+
     <span>
       <form class="delete" action="/gabble/delete/{{id}}" method="post">
         <button class="btn-floating btn-large waves-effect waves-light orange" name="delete"><i class="material-icons">delete</i></button>
@@ -89,5 +95,6 @@
 </span>
 </fieldset>
 {{/model}} -->
+</main>
 </body>
 </html>

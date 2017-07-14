@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Gabble-Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css">
+<head>
+  <meta charset="utf-8">
+  <title>Gabble-Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
 
-  </head>
-  <body>
-    <h1>Gabble</h1>
-    <h3>Login</h3>
-    <form class="container" action="/gabble/user/login" method="post">
-          <input type="hidden" name="next" value="{{next}}">
-          <div class="input-field col s12">
-            <input type="text" name="username" value="" placeholder="Username">
-          </div>
-          <div class="input-field col s12">
-            <input type="password" name="password" value="" placeholder="Password">
-          </div>
-          <button class="btn waves-effect waves-light orange" type="submit" name="action">Login
-    <i class="material-icons right">send</i>
-  </button>
-        </form>
-        <div class="">
-            <a class="waves-effect waves-light btn orange" href="/gabble/user/signup"><i class="material-icons left">cloud</i>New User Signup</a>
-        </div>
-  </body>
+</head>
+<body>
+  <ul id="slide-out" class="side-nav fixed orange">
+    <li>
+      <a href="/gabble/"><h1>Gabble</h1></a>
+    </li>
+      <li>
+        <p>{{welcomeName}}</p>
+        <h3>Login</h3>
+      </li>
+      <li>
+        <form class='signout' action='/gabble/signout' method='post'>
+          <button class="btn waves-effect waves-light orange" type="submit" name="action">Sign Out
+        <i class="material-icons right">close</i>
+      </button>
+      </form>
+      </li>
+    </ul>
+
+
+  <main>
+  <form class="container" action="/gabble/user/login" method="post">
+    <input type="hidden" name="next" value="{{next}}">
+    <div class="input-field col s12">
+      <input type="text" name="username" value="" placeholder="Username">
+    </div>
+    <div class="input-field col s12">
+      <input type="password" name="password" value="" placeholder="Password">
+    </div>
+    <button class="btn waves-effect waves-light orange" type="submit" name="action">Login
+      <i class="material-icons right">send</i>
+    </button>
+  </form>
+  <div class="">
+    <a class="waves-effect waves-light btn orange" href="/gabble/user/signup"><i class="material-icons left">cloud</i>New User Signup</a>
+  </div>
+</main>
+</body>
 </html>

@@ -15,7 +15,9 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id'
-        }
+        },
+        onDelete: 'cascade',
+       onUpdate: 'cascade'
       },
       gabId: {
         type: Sequelize.INTEGER,
@@ -23,7 +25,9 @@ module.exports = {
         references: {
           model: 'Gabs',
           key: 'id'
-        }
+        },
+        onDelete: 'cascade',
+       onUpdate: 'cascade'
       },
       createdAt: {
         allowNull: false,
