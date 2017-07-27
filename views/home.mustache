@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <p>{{gab}}</p>
+        <p class="orange-text">{{gab}}</p>
 
         <div class="row">
           <div class="col s2">
@@ -68,12 +68,13 @@
             {{/UserLikes.length}}
           </div>
           <div class="delete col s7">
-            {{#showDeleteIfOwner}}
-            {{loggedInUser}}
-            <!-- <form class="delete" action="/gabble/delete/{{id}}" method="post">
+            {{#loggedInUser}}
+            <form class="delete" action="/gabble/delete/{{id}}" method="post">
               <button class="btn-floating btn-large waves-effect waves-light orange" name="delete"><i class="material-icons">delete</i></button>
-            </form> -->
-          {{/showDeleteIfOwner}}
+            </form>
+          {{/loggedInUser}}
+          {{^loggedInUser}}
+          {{/loggedInUser}}
 
           </div>
 
