@@ -5,10 +5,7 @@ const models = require('../models');
 const Sequelize = require('sequelize');
 
 module.exports={
-  //---------signup render
-  signUp: (req, res,next)=>{
-    res.render('signup')
-  },
+
   //------login render
   loginPage: (req, res, next)=>{
     res.render('login')
@@ -71,7 +68,7 @@ module.exports={
       req.session.user = user.username
       console.log("session.user ", req.session.user);
       req.session.userId = user.id
-      console.log("session.id ", req.session.id);
+      console.log("session.id ", req.session.userId);
       req.session.name = user.first_name;
 
 
@@ -86,14 +83,15 @@ module.exports={
   home: function(req, res) {
     context = {
       welcomeName: req.session.name,
-      signedInUser: "@" + req.session.user
+      signedInUser: "@" + req.session.user,
+      loggedInUser: req.session.userId
     }
     models.Gab.findAll({
       include: [
       {
         model: models.User,
         as: 'users'
-      },],
+      }, 'UserLikes'],
       order: [['createdAt', 'DESC']]
     }).then(function(gabs) {
         context.model = gabs;
@@ -109,7 +107,7 @@ module.exports={
   },
 //-------like button--------
   createLike: (req, res)=>{
-    var likesArray = []
+
     models.Gab.findOne({
       where: {id: req.params.id},
       include: [{
@@ -161,7 +159,7 @@ module.exports={
     delete req.session.name;
     delete req.session.userId;
     delete req.session.user;
-    res.redirect('/google/user/login')
+    res.redirect('/gabble/user/login')
   },
 
 

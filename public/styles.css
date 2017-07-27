@@ -5,6 +5,9 @@ body{
   background: #000;
   text-align: center;
 }
+.title{
+
+}
 .input-field input[type=text]:focus {
   border-bottom: 1px solid #F66733;
   box-shadow: 0 1px 0 0 #F66733;
@@ -12,6 +15,9 @@ body{
 .btn{
 
   background: #F66733
+}
+.delete{
+  text-align: right;
 }
 .btn-floating{
   display: inline

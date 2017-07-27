@@ -2,9 +2,8 @@ const express = require('express');
 const gabbleController = require('./controllers/gabbleController');
 
 module.exports = function(app){
+
   
-  //render signup
-  app.get("/gabble/user/signup/", gabbleController.signUp);
 //create new user
   app.post("/gabble/user/signup/", gabbleController.signValidation);
   //render login page
