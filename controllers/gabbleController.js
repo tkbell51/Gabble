@@ -60,25 +60,24 @@ module.exports={
   },
 //----------------login--------------
   login: (req, res, next)=>{
-
+    let context = {};
     models.User.findOne({
       where: {
         username: req.body.username,
         password: req.body.password
       }
     }).then((user)=>{
-      console.log(user);
-      req.session.user = user.username
-      console.log("session.user ", req.session.user);
-      req.session.userId = user.id
-      console.log("session.id ", req.session.userId);
-      req.session.name = user.first_name;
-
-
-      if(req.session.user){
+      if(!user){
+        context.error = "Invalid Credentials: Please Try again"
+        res.render('login', context);
+      } else {
+        console.log(user);
+        req.session.user = user.username
+        console.log("session.user ", req.session.user);
+        req.session.userId = user.id
+        console.log("session.id ", req.session.userId);
+        req.session.name = user.first_name;
         res.redirect('/gabble/');
-      }else{
-        res.redirect('gabble/user/login');
       }
     })
   },

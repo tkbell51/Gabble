@@ -2,13 +2,44 @@
   color: #FFF;
 }
 body{
-
   background: #000;
-
 }
-
-
-
-.delete{
-  text-align: right;
+/*------nav-----*/
+.brand-logo:hover{
+  color: #000;
+}
+#login, #signup{
+  font-size: 1.5em;
+}
+#login:hover, #signup:hover{
+  color: #000;
+}
+.signedIn{
+  font-size: 2em;
+}
+#dropdown1{
+  margin-top: 30px;
+  margin-left: 15px;
+  height: 35px;
+}
+/*-----home page-------*/
+#newGab{
+  margin-top: 5%;
+}
+.newGabButton{
+  margin-top: 15px;
+}
+.card:hover{
+  box-shadow:5px 5px 20px #FFF;
+}
+span.badge{
+  padding-top: 15px;
+  font-size: 1.2rem;
+}
+.card, .card-panel{
+  margin-top: 5%;
+}
+/*------like page -------*/
+.circle{
+  margin-top:15px;
 }

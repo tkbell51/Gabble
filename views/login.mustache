@@ -10,29 +10,38 @@
 </head>
 <body>
   <nav class="orange">
+<div class="container">
+  <div class="nav-wrapper">
+    <a href="/gabble/" class="brand-logo center">Gabble</a>
+    <ul id="nav-mobile" class="right">
+        <li>
+          <a id="signup" href="/gabble/user/signup" class="waves-effect waves-light orange right">New User SignUp</a>
+        </li>
+    </ul>
 
-    <div class="nav-wrapper">
-      <a href="/gabble/" class="brand-logo center">Gabble</a>
+  </div>
+</div>
 
-    </div>
   </nav>
   <main>
     <div class="container row">
       <h1 class="login">Login</h1>
       <form class="col s12 grey darken-4" action="/gabble/user/login" method="post">
+        <p>{{error}}</p>
         <input type="hidden" name="next" value="{{next}}">
         <div class="input-field col s6">
-          <input type="text" name="username" value="" placeholder="Username">
+          <input type="text" name="username" value="" placeholder="Username" autofocus>
         </div>
         <div class="input-field col s6">
           <input type="password" name="password" value="" placeholder="Password">
         </div>
-        <div class="row">
+        <div class=" right">
+
           <button class="btn waves-effect waves-light orange" type="submit" name="action">Login
             <i class="material-icons right">send</i>
           </button>
-          <a href="/gabble/user/signup" class="btn waves-effect waves-light orange right">New User SignUp</a>
-        </div>
+
+
       </form>
     </div>
   </div>
