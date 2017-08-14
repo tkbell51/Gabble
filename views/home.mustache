@@ -3,90 +3,109 @@
 <head>
   <meta charset="utf-8">
   <title>Gabble-Home</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <ul id="slide-out" class="side-nav fixed orange">
-    <li>
-      <a class="title" href="/gabble/">Gabble</a>
-    </li>
-    <li>
-      <p>{{welcomeName}}<br>is logged in</p>
+  <nav class="orange">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/gabble/" class="brand-logo center">Gabble</a>
+        <ul class="left hide-on-med-and-down">
+<li>Welcome {{signedInUser}}</li>        </ul>
+        <ul  class="right hide-on-med-and-down">
+            <form class='signout' action='/gabble/signout' method='post'>
+              <div class="input-field">
+                <li>
+                  <button class="btn-flat waves-effect waves-light orange" type="submit" name="action">Sign Out
 
-    </li>
-    <li>
-      <form class='signout' action='/gabble/signout' method='post'>
-        <button class="btn waves-effect waves-light orange" type="submit" name="action">Sign Out
-          <i class="material-icons right">close</i>
-        </button>
-      </form>
-    </li>
-  </ul>
+                </button>
+              </li>
+              </div>
+            </form>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <main>
-    <h1>Welcome {{signedInUser}}</h1>
+<main>
 
-    <form class="container" action="/gabble/" method="post">
-      <input type="text" name="newPost" value="" placeholder="What you want to Gab about?">
-      <button class="btn waves-effect waves-light orange" type="submit" name="action">Create Gab
-        <i class="material-icons left">send</i>
-      </button>
-    </form>
+  <div class="container row">
+
+  <form action="/gabble/" method="post">
+    <div class="row">
+    <div class="col m8 input-field ">
+      <input id="newPost" type="text" name="newPost" placeholder="What you want to Gab about?">
+<span><button class="btn waves-effect waves-light orange" type="submit" name="action">Create Gab
+</button></span>
+    </div>
+
+
+
+
+
+</div>
+  </form>
+</div>
+
+<div class="divider"></div>
+
+<div class="container">
+
+
 
     {{#model}}
-
-
-
     <a href="/gabble/{{id}}">
-      <div class="gab container grey darken-4">
-        <div class="row">
-          <div class="col s6">
-            <p>@{{users.username}}</p>
+
+
+          <div class="card grey darken-4 hoverable">
+            <div class="card-content white-text">
+              <span class="card-title">@{{users.username}} - {{createdAt}}</span>
+            <h3 class="orange-text">{{gab}}</h3>
+            </div>
+            <div class="card-action">
+              <div class="row">
+                <div class="col s6 m6">
+                  <form class='like' action="/gabble/like/{{id}}" method="post">
+                    <button class="btn btn-large waves-effect waves-light orange" name="like"><i class="material-icons">thumb_up</i>
+                      {{#UserLikes.length}}
+                      <span class="badge white-text">{{.}}</span>
+                      {{/UserLikes.length}}
+                      {{^UserLikes.length}}
+                      <span class="badge white-text">No Likes<span>
+                      {{/UserLikes.length}}
+                    </button>
+                  </form>
+                </div>
+
+
+                <div class="col s6 m6">
+                  {{#loggedInUser}}
+                  <form class="delete" action="/gabble/delete/{{id}}" method="post">
+                    <button class="btn-floating btn-large waves-effect waves-light orange" name="delete"><i class="material-icons">delete</i></button>
+                  </form>
+                {{/loggedInUser}}
+                {{^loggedInUser}}
+                {{/loggedInUser}}
+                </div>
+
+
+
+              </div>
+
+
+
+            </div>
           </div>
-          <div class="col s6">
-            <p>{{createdAt}}</p>
-          </div>
-        </div>
 
-        <p class="orange-text">{{gab}}</p>
-
-        <div class="row">
-          <div class="col s2">
-            <form class='like' action="/gabble/like/{{id}}" method="post">
-              <button class="btn-floating btn-large waves-effect waves-light orange" name="like"><i class="material-icons">thumb_up</i></button>
-            </form>
-          </div>
-          <div class="col s3">
-            {{#UserLikes.length}}
-            <p>{{.}} Likes</p>
-            {{/UserLikes.length}}
-            {{^UserLikes.length}}
-            <p>No Likes<p>
-            {{/UserLikes.length}}
-          </div>
-          <div class="delete col s7">
-            {{#loggedInUser}}
-            <form class="delete" action="/gabble/delete/{{id}}" method="post">
-              <button class="btn-floating btn-large waves-effect waves-light orange" name="delete"><i class="material-icons">delete</i></button>
-            </form>
-          {{/loggedInUser}}
-          {{^loggedInUser}}
-          {{/loggedInUser}}
-
-          </div>
-
-
-
-
-        </div>
         <p>{{message}}<p>
-        </div>
+
     </a>
       {{/model}}
 
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
   </body>
   </html>

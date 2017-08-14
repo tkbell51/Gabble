@@ -3,7 +3,8 @@ const gabbleController = require('./controllers/gabbleController');
 
 module.exports = function(app){
 
-  
+
+  app.get("/gabble/user/signup", gabbleController.signupPage)
 //create new user
   app.post("/gabble/user/signup/", gabbleController.signValidation);
   //render login page

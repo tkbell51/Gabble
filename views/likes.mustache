@@ -9,39 +9,50 @@
 
   </head>
   <body>
-    <ul id="slide-out" class="side-nav fixed orange">
-      <li>
-        <a class="title" href="/gabble/">Gabble</a>
-      </li>
-        <li>
-          <p>{{welcomeName}}</p>
-          <p> is logged in</p>
-        </li>
-        <li>
-          <form class='signout' action='/gabble/signout' method='post'>
-            <button class="btn waves-effect waves-light orange" type="submit" name="action">Sign Out
-          <i class="material-icons right">close</i>
-        </button>
-        </form>
-        </li>
-      </ul>
+    <nav class="orange">
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="/gabble/" class="brand-logo center">Gabble</a>
+          <ul class="left hide-on-med-and-down">
+              <li>Welcome {{signedInUser}}</li>
+          </ul>
+          <ul  class="right hide-on-med-and-down">
+              <form class='signout' action='/gabble/signout' method='post'>
+                <div class="input-field">
+                  <li>
+                    <button class="btn-flat waves-effect waves-light orange" type="submit" name="action">Sign Out
+
+                  </button>
+                </li>
+                </div>
+              </form>
+          </ul>
+        </div>
+      </div>
+    </nav>
       <main>
-    {{#model}}
-    {{users.username}}
-    {{createdAt}}
 
-    <h3 class="gab">{{gab}}</h3>
+        <div class="container">
+          <h1>Likes</h1>
+        </div>
+          <div class="divider"></div>
 
-<ul>
-  {{#likes}}
-  <li class="likes">{{.}}</li>
-  {{/likes}}
-</ul>
+<div class="container">
 
 
+          {{#model}}
+          <div class="card-panel grey darken-4">
+            <span class="card-title">@{{users.username}} - {{createdAt}}</span>
+            <h3 class="orange-text">{{gab}}</h3>
+          </div>
+      <ul>
+        {{#likes}}
+        <li class="likes"><h4>- {{.}}</h4></li>
+        {{/likes}}
+      </ul>
+          {{/model}}
+        </div>
 
-
-    {{/model}}
   </main>
   </body>
 </html>

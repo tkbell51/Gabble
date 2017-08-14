@@ -10,6 +10,9 @@ module.exports={
   loginPage: (req, res, next)=>{
     res.render('login')
   },
+  signupPage: (req, res)=>{
+    res.render('signup')
+  },
 //------signup up create and validation -----
   signValidation: function (req, res, next){
 
@@ -133,9 +136,13 @@ module.exports={
        console.log(gab);
        gab.getUserLikes().then(function(result) {
          var context = {
+
            model: gab,
            name: req.session.user,
-           likes: []
+           likes: [],
+           welcomeName: req.session.name,
+           signedInUser: "@" + req.session.user,
+           loggedInUser: req.session.userId
          };
          for (var i = 0; i < result.length; i++) {
            console.log(result[i].username);
